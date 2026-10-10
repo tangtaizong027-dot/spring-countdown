@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>春节倒计时</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #E6F0EC 0%, #C3D9D2 45%, #A8C4BC 100%);
+      color: #33443F;
+      font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+      text-align: center;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      font-size: clamp(1.4rem, 5vw, 2rem);
+      margin-bottom: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: #3A4F49;
+    }
+
+    #countdown {
+      font-size: clamp(1.6rem, 7vw, 3rem);
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.55);
+      color: #2F4A43;
+      padding: 1.2rem 1.5rem;
+      border-radius: 1.2rem;
+      box-shadow: 0 10px 30px rgba(90, 120, 112, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+
+    #target {
+      margin-top: 1rem;
+      font-size: 0.95rem;
+      color: #5A706A;
+      opacity: 1;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <h1>距离春节还有</h1>
+  <div id="countdown">加载中...</div>
+  <p id="target"></p>
+
+  <script>
+    // 春节日期，按中国时间零点。以后不够用可以继续往下加。
+    const springFestivals = {
+      2027: '2027-02-06T00:00:00+08:00',
+      2028: '2028-01-26T00:00:00+08:00',
+      2029: '2029-02-13T00:00:00+08:00',
+      2030: '2030-02-03T00:00:00+08:00',
+      2031: '2031-01-23T00:00:00+08:00',
+      2032: '2032-02-11T00:00:00+08:00',
+      2033: '2033-01-31T00:00:00+08:00',
+      2034: '2034-02-19T00:00:00+08:00',
+      2035: '2035-02-08T00:00:00+08:00'
+    };
+
+    function getNextSpringFestival() {
+      const now = new Date();
+      const years = Object.keys(springFestivals)
+        .map(Number)
+        .sort((a, b) => a - b);
+
+      for (const year of years) {
+        const date = new Date(springFestivals[year]);
+        if (date > now) {
+          return { year, date };
+        }
+      }
+      return null;
+    }
+
+    function updateCountdown() {
+      const countdownEl = document.getElementById('countdown');
+      const targetEl = document.getElementById('target');
+      const next = getNextSpringFestival();
+
+      if (!next) {
+        countdownEl.textContent = '请更新春节日期列表';
+        targetEl.textContent = '';
+        return;
+      }
+
+      const diff = next.date - new Date();
+
+      if (diff <= 0) {
+        countdownEl.textContent = '春节快乐！';
+        return;
+      }
+
+      const days = Math.floor(diff / 86400000);
+      const hours = Math.floor((diff % 86400000) / 3600000);
+      const minutes = Math.floor((diff % 3600000) / 60000);
+      const seconds = Math.floor((diff % 60000) / 1000);
+
+      countdownEl.textContent = `${days} 天 ${hours} 小时 ${minutes} 分 ${seconds} 秒`;
+
+      targetEl.textContent = `目标：${next.year} 年春节（${next.date.toLocaleString('zh-CN', {
+        timeZone: 'Asia/Shanghai',
+        hour12: false
+      })}）`;
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
