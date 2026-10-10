@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>春节倒计时</title>
   <style>
+    /* 基础通用样式 */
     body {
       margin: 0;
       min-height: 100vh;
@@ -12,111 +13,197 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, #E6F0EC 0%, #C3D9D2 45%, #A8C4BC 100%);
-      color: #33443F;
       font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
       text-align: center;
       padding: 20px;
       box-sizing: border-box;
+      transition: background 0.5s ease, color 0.5s ease;
+      /* 默认加载淡青色 */
+      background: linear-gradient(135deg, #E6F0EC 0%, #C3D9D2 45%, #A8C4BC 100%);
+      color: #33443F;
     }
 
     h1 {
-      font-size: clamp(1.4rem, 5vw, 2rem);
+      font-size: 1.8rem;
       margin-bottom: 1rem;
       font-weight: 600;
       letter-spacing: 0.08em;
+      transition: color 0.5s ease;
       color: #3A4F49;
     }
 
     #countdown {
-      font-size: clamp(1.6rem, 7vw, 3rem);
+      font-size: 2.2rem;
       font-weight: 700;
       background: rgba(255, 255, 255, 0.55);
-      color: #2F4A43;
       padding: 1.2rem 1.5rem;
       border-radius: 1.2rem;
-      box-shadow: 0 10px 30px rgba(90, 120, 112, 0.18);
       border: 1px solid rgba(255, 255, 255, 0.7);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
+      transition: color 0.5s ease, box-shadow 0.5s ease;
+      color: #2F4A43;
+      box-shadow: 0 10px 30px rgba(90, 120, 112, 0.18);
     }
 
     #target {
       margin-top: 1rem;
       font-size: 0.95rem;
-      color: #5A706A;
-      opacity: 1;
       line-height: 1.6;
+      transition: color 0.5s ease;
+      color: #5A706A;
     }
+
+    /* 颜色切换按钮样式 */
+    .theme-picker {
+      margin-top: 25px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .theme-dot {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.8);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .theme-dot:active {
+      transform: scale(0.85);
+    }
+
+    /* ====== 主题配色方案 ====== */
+
+    /* 1. 淡青色 (默认) */
+    body.theme-cyan { background: linear-gradient(135deg, #E6F0EC 0%, #C3D9D2 45%, #A8C4BC 100%); color: #33443F; }
+    body.theme-cyan h1 { color: #3A4F49; }
+    body.theme-cyan #countdown { color: #2F4A43; box-shadow: 0 10px 30px rgba(90, 120, 112, 0.18); }
+    body.theme-cyan #target { color: #5A706A; }
+
+    /* 2. 莫兰迪粉 */
+    body.theme-pink { background: linear-gradient(135deg, #F2E6E6 0%, #DEC3C3 45%, #C9A8A8 100%); color: #4A3333; }
+    body.theme-pink h1 { color: #4A3333; }
+    body.theme-pink #countdown { color: #4A3333; box-shadow: 0 10px 30px rgba(120, 90, 90, 0.18); }
+    body.theme-pink #target { color: #705A5A; }
+
+    /* 3. 莫兰迪灰蓝 */
+    body.theme-blue { background: linear-gradient(135deg, #E6EDF2 0%, #C3D4DE 45%, #A8BCC9 100%); color: #33414A; }
+    body.theme-blue h1 { color: #33414A; }
+    body.theme-blue #countdown { color: #33414A; box-shadow: 0 10px 30px rgba(90, 120, 120, 0.18); }
+    body.theme-blue #target { color: #5A6E70; }
+
+    /* 4. 莫兰迪奶茶色 */
+    body.theme-milktea { background: linear-gradient(135deg, #F2EDE6 0%, #DECFC3 45%, #C9B8A8 100%); color: #4A4233; }
+    body.theme-milktea h1 { color: #4A4233; }
+    body.theme-milktea #countdown { color: #4A4233; box-shadow: 0 10px 30px rgba(120, 110, 90, 0.18); }
+    body.theme-milktea #target { color: #706A5A; }
+
+    /* 颜色圆点对应的颜色 */
+    .theme-dot.theme-cyan { background: linear-gradient(135deg, #E6F0EC, #A8C4BC); }
+    .theme-dot.theme-pink { background: linear-gradient(135deg, #F2E6E6, #C9A8A8); }
+    .theme-dot.theme-blue { background: linear-gradient(135deg, #E6EDF2, #A8BCC9); }
+    .theme-dot.theme-milktea { background: linear-gradient(135deg, #F2EDE6, #C9B8A8); }
   </style>
 </head>
-<body>
+<body class="theme-cyan">
   <h1>距离春节还有</h1>
   <div id="countdown">加载中...</div>
   <p id="target"></p>
 
+  <!-- 颜色选择器 -->
+  <div class="theme-picker">
+    <div class="theme-dot theme-cyan" onclick="setTheme('theme-cyan')"></div>
+    <div class="theme-dot theme-pink" onclick="setTheme('theme-pink')"></div>
+    <div class="theme-dot theme-blue" onclick="setTheme('theme-blue')"></div>
+    <div class="theme-dot theme-milktea" onclick="setTheme('theme-milktea')"></div>
+  </div>
+
   <script>
-    // 春节日期，按中国时间零点。以后不够用可以继续往下加。
-    const springFestivals = {
-      2027: '2027-02-06T00:00:00+08:00',
-      2028: '2028-01-26T00:00:00+08:00',
-      2029: '2029-02-13T00:00:00+08:00',
-      2030: '2030-02-03T00:00:00+08:00',
-      2031: '2031-01-23T00:00:00+08:00',
-      2032: '2032-02-11T00:00:00+08:00',
-      2033: '2033-01-31T00:00:00+08:00',
-      2034: '2034-02-19T00:00:00+08:00',
-      2035: '2035-02-08T00:00:00+08:00'
+    // ================= 主题切换逻辑 (ES5兼容) =================
+    function setTheme(themeName) {
+      document.body.className = themeName;
+      try {
+        localStorage.setItem('springTheme', themeName);
+      } catch (e) {}
+    }
+
+    // 页面加载时读取之前保存的颜色
+    try {
+      var savedTheme = localStorage.getItem('springTheme');
+      if (savedTheme) {
+        document.body.className = savedTheme;
+      }
+    } catch (e) {}
+
+    // ================= 倒计时核心逻辑 (ES5兼容) =================
+    var springFestivals = {
+      2027: [2027, 1, 6, 0, 0, 0],
+      2028: [2028, 0, 26, 0, 0, 0],
+      2029: [2029, 1, 13, 0, 0, 0],
+      2030: [2030, 1, 3, 0, 0, 0],
+      2031: [2031, 0, 23, 0, 0, 0],
+      2032: [2032, 1, 11, 0, 0, 0],
+      2033: [2033, 0, 31, 0, 0, 0],
+      2034: [2034, 1, 19, 0, 0, 0],
+      2035: [2035, 1, 8, 0, 0, 0]
     };
 
     function getNextSpringFestival() {
-      const now = new Date();
-      const years = Object.keys(springFestivals)
-        .map(Number)
-        .sort((a, b) => a - b);
+      var now = new Date();
+      var years = [];
+      for (var year in springFestivals) {
+        if (springFestivals.hasOwnProperty(year)) { years.push(parseInt(year, 10)); }
+      }
+      years.sort(function(a, b) { return a - b; });
 
-      for (const year of years) {
-        const date = new Date(springFestivals[year]);
-        if (date > now) {
-          return { year, date };
-        }
+      for (var i = 0; i < years.length; i++) {
+        var y = years[i];
+        var arr = springFestivals[y];
+        var date = new Date(arr[0], arr[1], arr[2], arr[3], arr[4], arr[5]);
+        if (date > now) { return { year: y, date: date }; }
       }
       return null;
     }
 
     function updateCountdown() {
-      const countdownEl = document.getElementById('countdown');
-      const targetEl = document.getElementById('target');
-      const next = getNextSpringFestival();
+      var countdownEl = document.getElementById('countdown');
+      var targetEl = document.getElementById('target');
+      var next = getNextSpringFestival();
 
       if (!next) {
-        countdownEl.textContent = '请更新春节日期列表';
-        targetEl.textContent = '';
-        return;
+        countdownEl.innerHTML = '请更新春节日期列表'; targetEl.innerHTML = ''; return;
       }
 
-      const diff = next.date - new Date();
+      var diff = next.date - new Date();
+      if (diff <= 0) { countdownEl.innerHTML = '春节快乐！'; return; }
 
-      if (diff <= 0) {
-        countdownEl.textContent = '春节快乐！';
-        return;
-      }
+      var days = Math.floor(diff / 86400000);
+      var hours = Math.floor((diff % 86400000) / 3600000);
+      var minutes = Math.floor((diff % 3600000) / 60000);
+      var seconds = Math.floor((diff % 60000) / 1000);
 
-      const days = Math.floor(diff / 86400000);
-      const hours = Math.floor((diff % 86400000) / 3600000);
-      const minutes = Math.floor((diff % 3600000) / 60000);
-      const seconds = Math.floor((diff % 60000) / 1000);
+      countdownEl.innerHTML = days + ' 天 ' + hours + ' 小时 ' + minutes + ' 分 ' + seconds + ' 秒';
 
-      countdownEl.textContent = `${days} 天 ${hours} 小时 ${minutes} 分 ${seconds} 秒`;
+      var d = next.date;
+      var yearStr = d.getFullYear();
+      var monthStr = d.getMonth() + 1;
+      var dayStr = d.getDate();
+      if (monthStr < 10) { monthStr = '0' + monthStr; }
+      if (dayStr < 10) { dayStr = '0' + dayStr; }
 
-      targetEl.textContent = `目标：${next.year} 年春节（${next.date.toLocaleString('zh-CN', {
-        timeZone: 'Asia/Shanghai',
-        hour12: false
-      })}）`;
+      targetEl.innerHTML = '目标：' + next.year + ' 年春节（' + yearStr + '-' + monthStr + '-' + dayStr + '）';
     }
 
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
+    if (window.location.protocol === 'file:') {
+      document.getElementById('countdown').innerHTML = '请通过网址打开';
+      document.getElementById('target').innerHTML = '微信不支持直接打开本地网页，必须通过网址访问。';
+    } else {
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+      window.addEventListener('pageshow', function(event) { if (event.persisted) { updateCountdown(); } });
+    }
   </script>
 </body>
 </html>
