@@ -25,11 +25,20 @@
 
     h1 {
       font-size: 1.8rem;
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
       font-weight: 600;
       letter-spacing: 0.08em;
       transition: color 0.5s ease;
       color: #3A4F49;
+    }
+
+    #today-info {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+      font-weight: 500;
+      transition: color 0.5s ease;
+      color: #5A706A;
+      opacity: 0.9;
     }
 
     #countdown {
@@ -54,15 +63,17 @@
 
     /* 颜色切换按钮样式 */
     .theme-picker {
-      margin-top: 25px;
+      margin-top: 30px;
       display: flex;
+      flex-wrap: wrap;
       justify-content: center;
-      gap: 15px;
+      gap: 12px;
+      max-width: 300px;
     }
 
     .theme-dot {
-      width: 32px;
-      height: 32px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
       border: 2px solid rgba(255, 255, 255, 0.8);
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -74,54 +85,81 @@
       transform: scale(0.85);
     }
 
-    /* ====== 主题配色方案 ====== */
+    /* ====== 7种莫兰迪主题配色方案 ====== */
 
     /* 1. 淡青色 (默认) */
     body.theme-cyan { background: linear-gradient(135deg, #E6F0EC 0%, #C3D9D2 45%, #A8C4BC 100%); color: #33443F; }
     body.theme-cyan h1 { color: #3A4F49; }
     body.theme-cyan #countdown { color: #2F4A43; box-shadow: 0 10px 30px rgba(90, 120, 112, 0.18); }
-    body.theme-cyan #target { color: #5A706A; }
+    body.theme-cyan #target, body.theme-cyan #today-info { color: #5A706A; }
 
     /* 2. 莫兰迪粉 */
     body.theme-pink { background: linear-gradient(135deg, #F2E6E6 0%, #DEC3C3 45%, #C9A8A8 100%); color: #4A3333; }
     body.theme-pink h1 { color: #4A3333; }
     body.theme-pink #countdown { color: #4A3333; box-shadow: 0 10px 30px rgba(120, 90, 90, 0.18); }
-    body.theme-pink #target { color: #705A5A; }
+    body.theme-pink #target, body.theme-pink #today-info { color: #705A5A; }
 
     /* 3. 莫兰迪灰蓝 */
     body.theme-blue { background: linear-gradient(135deg, #E6EDF2 0%, #C3D4DE 45%, #A8BCC9 100%); color: #33414A; }
     body.theme-blue h1 { color: #33414A; }
     body.theme-blue #countdown { color: #33414A; box-shadow: 0 10px 30px rgba(90, 120, 120, 0.18); }
-    body.theme-blue #target { color: #5A6E70; }
+    body.theme-blue #target, body.theme-blue #today-info { color: #5A6E70; }
 
     /* 4. 莫兰迪奶茶色 */
     body.theme-milktea { background: linear-gradient(135deg, #F2EDE6 0%, #DECFC3 45%, #C9B8A8 100%); color: #4A4233; }
     body.theme-milktea h1 { color: #4A4233; }
     body.theme-milktea #countdown { color: #4A4233; box-shadow: 0 10px 30px rgba(120, 110, 90, 0.18); }
-    body.theme-milktea #target { color: #706A5A; }
+    body.theme-milktea #target, body.theme-milktea #today-info { color: #706A5A; }
+
+    /* 5. 莫兰迪灰紫 */
+    body.theme-purple { background: linear-gradient(135deg, #EBE3ED 0%, #CFC2D6 45%, #B3A4BB 100%); color: #403347; }
+    body.theme-purple h1 { color: #403347; }
+    body.theme-purple #countdown { color: #403347; box-shadow: 0 10px 30px rgba(100, 90, 110, 0.18); }
+    body.theme-purple #target, body.theme-purple #today-info { color: #665A70; }
+
+    /* 6. 莫兰迪鼠尾草绿 (灰绿) */
+    body.theme-green { background: linear-gradient(135deg, #E3EDE6 0%, #C1D6C6 45%, #A0BBA6 100%); color: #33473A; }
+    body.theme-green h1 { color: #33473A; }
+    body.theme-green #countdown { color: #33473A; box-shadow: 0 10px 30px rgba(90, 120, 100, 0.18); }
+    body.theme-green #target, body.theme-green #today-info { color: #5A7060; }
+
+    /* 7. 莫兰迪燕麦色 (灰黄) */
+    body.theme-oat { background: linear-gradient(135deg, #F0EDE6 0%, #D4C9B6 45%, #B8AD9A 100%); color: #4A4533; }
+    body.theme-oat h1 { color: #4A4533; }
+    body.theme-oat #countdown { color: #4A4533; box-shadow: 0 10px 30px rgba(120, 115, 90, 0.18); }
+    body.theme-oat #target, body.theme-oat #today-info { color: #706B5A; }
 
     /* 颜色圆点对应的颜色 */
     .theme-dot.theme-cyan { background: linear-gradient(135deg, #E6F0EC, #A8C4BC); }
     .theme-dot.theme-pink { background: linear-gradient(135deg, #F2E6E6, #C9A8A8); }
     .theme-dot.theme-blue { background: linear-gradient(135deg, #E6EDF2, #A8BCC9); }
     .theme-dot.theme-milktea { background: linear-gradient(135deg, #F2EDE6, #C9B8A8); }
+    .theme-dot.theme-purple { background: linear-gradient(135deg, #EBE3ED, #B3A4BB); }
+    .theme-dot.theme-green { background: linear-gradient(135deg, #E3EDE6, #A0BBA6); }
+    .theme-dot.theme-oat { background: linear-gradient(135deg, #F0EDE6, #B8AD9A); }
   </style>
 </head>
 <body class="theme-cyan">
   <h1>距离春节还有</h1>
+  <div id="today-info">日期加载中...</div>
   <div id="countdown">加载中...</div>
   <p id="target"></p>
 
-  <!-- 颜色选择器 -->
+  <!-- 颜色选择器（7个圆点） -->
   <div class="theme-picker">
     <div class="theme-dot theme-cyan" onclick="setTheme('theme-cyan')"></div>
     <div class="theme-dot theme-pink" onclick="setTheme('theme-pink')"></div>
     <div class="theme-dot theme-blue" onclick="setTheme('theme-blue')"></div>
     <div class="theme-dot theme-milktea" onclick="setTheme('theme-milktea')"></div>
+    <div class="theme-dot theme-purple" onclick="setTheme('theme-purple')"></div>
+    <div class="theme-dot theme-green" onclick="setTheme('theme-green')"></div>
+    <div class="theme-dot theme-oat" onclick="setTheme('theme-oat')"></div>
   </div>
 
   <script>
-    // ================= 主题切换逻辑 (ES5兼容) =================
+    // ================= 1. 主题切换与自动换色逻辑 (ES5兼容) =================
+    var themeNames = ['theme-cyan', 'theme-pink', 'theme-blue', 'theme-milktea', 'theme-purple', 'theme-green', 'theme-oat'];
+
     function setTheme(themeName) {
       document.body.className = themeName;
       try {
@@ -129,15 +167,35 @@
       } catch (e) {}
     }
 
-    // 页面加载时读取之前保存的颜色
+    // 页面加载时：读取之前保存的颜色，或者按今天的日期自动分配颜色
     try {
       var savedTheme = localStorage.getItem('springTheme');
       if (savedTheme) {
         document.body.className = savedTheme;
+      } else {
+        // 自动根据日期分配 (1-31号映射到0-6，实现一天一个颜色)
+        var day = new Date().getDate();
+        var autoThemeIndex = day % 7;
+        document.body.className = themeNames[autoThemeIndex];
       }
     } catch (e) {}
 
-    // ================= 倒计时核心逻辑 (ES5兼容) =================
+    // ================= 2. 显示今天日期和星期 (ES5兼容) =================
+    function updateTodayInfo() {
+      var now = new Date();
+      var year = now.getFullYear();
+      var month = now.getMonth() + 1;
+      var date = now.getDate();
+      var day = now.getDay();
+      
+      // 星期数组，避免使用 toLocaleDateString 造成兼容问题
+      var weekDays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+      var weekDayStr = weekDays[day];
+
+      document.getElementById('today-info').innerHTML = '今天是 ' + year + '年' + month + '月' + date + '日 ' + weekDayStr;
+    }
+
+    // ================= 3. 倒计时核心逻辑 (ES5兼容) =================
     var springFestivals = {
       2027: [2027, 1, 6, 0, 0, 0],
       2028: [2028, 0, 26, 0, 0, 0],
@@ -196,13 +254,22 @@
       targetEl.innerHTML = '目标：' + next.year + ' 年春节（' + yearStr + '-' + monthStr + '-' + dayStr + '）';
     }
 
+    // ================= 4. 初始化运行 =================
     if (window.location.protocol === 'file:') {
+      document.getElementById('today-info').innerHTML = '本地文件受限';
       document.getElementById('countdown').innerHTML = '请通过网址打开';
       document.getElementById('target').innerHTML = '微信不支持直接打开本地网页，必须通过网址访问。';
     } else {
+      updateTodayInfo();
       updateCountdown();
       setInterval(updateCountdown, 1000);
-      window.addEventListener('pageshow', function(event) { if (event.persisted) { updateCountdown(); } });
+      // 兼容iOS微信后退不刷新问题
+      window.addEventListener('pageshow', function(event) { 
+        if (event.persisted) { 
+          updateTodayInfo();
+          updateCountdown(); 
+        } 
+      });
     }
   </script>
 </body>
