@@ -18,22 +18,59 @@
       padding: 20px;
       box-sizing: border-box;
       transition: background 0.5s ease, color 0.5s ease;
-      /* 默认加载淡青色 */
       background: linear-gradient(135deg, #E6F0EC 0%, #C3D9D2 45%, #A8C4BC 100%);
       color: #33443F;
     }
 
+    /* ====== 歌词区样式 ====== */
+    #lyrics-box {
+      min-height: 80px; /* 防止歌词长短不一导致页面跳动 */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      padding: 0 10px;
+      transition: opacity 0.8s ease-in-out;
+    }
+
+    /* 歌词主字 */
+    .lyric-text {
+      font-size: 1.15rem;
+      font-weight: 500;
+      line-height: 1.6;
+      letter-spacing: 0.05em;
+      transition: color 0.5s ease;
+      animation: floatAndFade 4s ease-in-out infinite;
+    }
+
+    /* 歌名歌手 */
+    .lyric-info {
+      font-size: 0.85rem;
+      margin-top: 0.4rem;
+      opacity: 0.75;
+      transition: color 0.5s ease;
+      animation: floatAndFade 4s ease-in-out infinite;
+      animation-delay: 0.5s; /* 让歌名稍微延后一点浮动，增加层次感 */
+    }
+
+    /* 浮动呼吸动画 */
+    @keyframes floatAndFade {
+      0% { transform: translateY(0px); opacity: 0.85; }
+      50% { transform: translateY(-4px); opacity: 1; }
+      100% { transform: translateY(0px); opacity: 0.85; }
+    }
+
+    /* 标题和倒计时 */
     h1 {
       font-size: 1.8rem;
       margin-top: 0;
-      margin-bottom: 1.5rem; /* 增加和下方倒计时的间距 */
+      margin-bottom: 1rem;
       font-weight: 600;
       letter-spacing: 0.08em;
       transition: color 0.5s ease;
       color: #3A4F49;
     }
 
-    /* 倒计时数字卡片 */
     #countdown {
       font-size: 2.2rem;
       font-weight: 700;
@@ -46,10 +83,9 @@
       box-shadow: 0 10px 30px rgba(90, 120, 112, 0.18);
     }
 
-    /* 今天日期（移动到了倒计时下方） */
     #today-info {
       font-size: 1rem;
-      margin-top: 1rem; /* 调整了这里，让它离倒计时近一点 */
+      margin-top: 1rem;
       margin-bottom: 0;
       font-weight: 500;
       transition: color 0.5s ease;
@@ -57,7 +93,6 @@
       opacity: 0.9;
     }
 
-    /* 目标日期（最底部） */
     #target {
       margin-top: 0.5rem;
       font-size: 0.9rem;
@@ -67,7 +102,7 @@
       opacity: 0.8;
     }
 
-    /* 颜色切换按钮样式 */
+    /* 颜色切换按钮 */
     .theme-picker {
       margin-top: 35px;
       display: flex;
@@ -87,55 +122,58 @@
       transition: transform 0.2s;
     }
 
-    .theme-dot:active {
-      transform: scale(0.85);
-    }
+    .theme-dot:active { transform: scale(0.85); }
 
-    /* ====== 7种莫兰迪主题配色方案 ====== */
-
-    /* 1. 淡青色 */
+    /* ====== 7种莫兰迪主题配色 ====== */
     body.theme-cyan { background: linear-gradient(135deg, #E6F0EC 0%, #C3D9D2 45%, #A8C4BC 100%); color: #33443F; }
     body.theme-cyan h1 { color: #3A4F49; }
     body.theme-cyan #countdown { color: #2F4A43; box-shadow: 0 10px 30px rgba(90, 120, 112, 0.18); }
+    body.theme-cyan .lyric-text { color: #2F4A43; }
+    body.theme-cyan .lyric-info { color: #5A706A; }
     body.theme-cyan #today-info, body.theme-cyan #target { color: #5A706A; }
 
-    /* 2. 莫兰迪粉 */
     body.theme-pink { background: linear-gradient(135deg, #F2E6E6 0%, #DEC3C3 45%, #C9A8A8 100%); color: #4A3333; }
     body.theme-pink h1 { color: #4A3333; }
     body.theme-pink #countdown { color: #4A3333; box-shadow: 0 10px 30px rgba(120, 90, 90, 0.18); }
+    body.theme-pink .lyric-text { color: #4A3333; }
+    body.theme-pink .lyric-info { color: #705A5A; }
     body.theme-pink #today-info, body.theme-pink #target { color: #705A5A; }
 
-    /* 3. 莫兰迪灰蓝 */
     body.theme-blue { background: linear-gradient(135deg, #E6EDF2 0%, #C3D4DE 45%, #A8BCC9 100%); color: #33414A; }
     body.theme-blue h1 { color: #33414A; }
     body.theme-blue #countdown { color: #33414A; box-shadow: 0 10px 30px rgba(90, 120, 120, 0.18); }
+    body.theme-blue .lyric-text { color: #33414A; }
+    body.theme-blue .lyric-info { color: #5A6E70; }
     body.theme-blue #today-info, body.theme-blue #target { color: #5A6E70; }
 
-    /* 4. 莫兰迪奶茶色 */
     body.theme-milktea { background: linear-gradient(135deg, #F2EDE6 0%, #DECFC3 45%, #C9B8A8 100%); color: #4A4233; }
     body.theme-milktea h1 { color: #4A4233; }
     body.theme-milktea #countdown { color: #4A4233; box-shadow: 0 10px 30px rgba(120, 110, 90, 0.18); }
+    body.theme-milktea .lyric-text { color: #4A4233; }
+    body.theme-milktea .lyric-info { color: #706A5A; }
     body.theme-milktea #today-info, body.theme-milktea #target { color: #706A5A; }
 
-    /* 5. 莫兰迪灰紫 */
     body.theme-purple { background: linear-gradient(135deg, #EBE3ED 0%, #CFC2D6 45%, #B3A4BB 100%); color: #403347; }
     body.theme-purple h1 { color: #403347; }
     body.theme-purple #countdown { color: #403347; box-shadow: 0 10px 30px rgba(100, 90, 110, 0.18); }
+    body.theme-purple .lyric-text { color: #403347; }
+    body.theme-purple .lyric-info { color: #665A70; }
     body.theme-purple #today-info, body.theme-purple #target { color: #665A70; }
 
-    /* 6. 莫兰迪鼠尾草绿 (灰绿) */
     body.theme-green { background: linear-gradient(135deg, #E3EDE6 0%, #C1D6C6 45%, #A0BBA6 100%); color: #33473A; }
     body.theme-green h1 { color: #33473A; }
     body.theme-green #countdown { color: #33473A; box-shadow: 0 10px 30px rgba(90, 120, 100, 0.18); }
+    body.theme-green .lyric-text { color: #33473A; }
+    body.theme-green .lyric-info { color: #5A7060; }
     body.theme-green #today-info, body.theme-green #target { color: #5A7060; }
 
-    /* 7. 莫兰迪燕麦色 (灰黄) */
     body.theme-oat { background: linear-gradient(135deg, #F0EDE6 0%, #D4C9B6 45%, #B8AD9A 100%); color: #4A4533; }
     body.theme-oat h1 { color: #4A4533; }
     body.theme-oat #countdown { color: #4A4533; box-shadow: 0 10px 30px rgba(120, 115, 90, 0.18); }
+    body.theme-oat .lyric-text { color: #4A4533; }
+    body.theme-oat .lyric-info { color: #706B5A; }
     body.theme-oat #today-info, body.theme-oat #target { color: #706B5A; }
 
-    /* 颜色圆点对应的颜色 */
     .theme-dot.theme-cyan { background: linear-gradient(135deg, #E6F0EC, #A8C4BC); }
     .theme-dot.theme-pink { background: linear-gradient(135deg, #F2E6E6, #C9A8A8); }
     .theme-dot.theme-blue { background: linear-gradient(135deg, #E6EDF2, #A8BCC9); }
@@ -146,18 +184,20 @@
   </style>
 </head>
 <body class="theme-cyan">
+  
+  <!-- 1. 歌词区（放在最上面） -->
+  <div id="lyrics-box">
+    <div class="lyric-text" id="lyric-text">歌词加载中...</div>
+    <div class="lyric-info" id="lyric-info"></div>
+  </div>
+
+  <!-- 2. 主倒计时区 -->
   <h1>距离春节还有</h1>
-  
-  <!-- 1. 倒计时数字 -->
   <div id="countdown">加载中...</div>
-  
-  <!-- 2. 今天日期（已挪到这里，倒计时下方） -->
   <div id="today-info">日期加载中...</div>
-  
-  <!-- 3. 目标日期 -->
   <p id="target"></p>
 
-  <!-- 颜色选择器（7个圆点） -->
+  <!-- 3. 颜色选择器 -->
   <div class="theme-picker">
     <div class="theme-dot theme-cyan" onclick="setTheme('theme-cyan')"></div>
     <div class="theme-dot theme-pink" onclick="setTheme('theme-pink')"></div>
@@ -169,45 +209,104 @@
   </div>
 
   <script>
-    // ================= 1. 主题切换与自动换色逻辑 (ES5兼容) =================
+    // ================= 1. 主题切换与自动换色逻辑 =================
     var themeNames = ['theme-cyan', 'theme-pink', 'theme-blue', 'theme-milktea', 'theme-purple', 'theme-green', 'theme-oat'];
 
     function setTheme(themeName) {
       document.body.className = themeName;
-      try {
-        localStorage.setItem('springTheme', themeName);
-      } catch (e) {}
+      try { localStorage.setItem('springTheme', themeName); } catch (e) {}
     }
 
-    // 页面加载时：读取之前保存的颜色，或者按今天的日期自动分配颜色
     try {
       var savedTheme = localStorage.getItem('springTheme');
       if (savedTheme) {
         document.body.className = savedTheme;
       } else {
-        // 自动根据日期分配 (1-31号映射到0-6，实现一天一个颜色)
         var day = new Date().getDate();
-        var autoThemeIndex = day % 7;
-        document.body.className = themeNames[autoThemeIndex];
+        document.body.className = themeNames[day % 7];
       }
     } catch (e) {}
 
-    // ================= 2. 显示今天日期和星期 (ES5兼容) =================
-    function updateTodayInfo() {
+    // ================= 2. 歌词数据区（目前为测试版，后续替换为200首） =================
+    // 格式严格按照：歌词\n——《歌名》歌手
+    var lyricsData = [
+      "雨下整夜 我的爱溢出就像雨水\n——《七里香》周杰伦",
+      "我一路向北 离开有你的季节\n——《一路向北》周杰伦",
+      "刮风这天 我试过握着你手 但偏偏雨渐渐大到我看你不见\n——《晴天》周杰伦",
+      "繁华如三千东流水 我只取一瓢爱了解\n——《发如雪》周杰伦",
+      "从前从前有个人爱你很久 但偏偏风渐渐把距离吹得好远\n——《晴天》周杰伦",
+      "说不上为什么 我变得很主动 若爱上一个人 什么都会值得去做\n——《简单爱》周杰伦",
+      "我想就这样牵着你的手不放开 爱能不能够永远单纯没有悲哀\n——《简单爱》周杰伦",
+      "如果那两个字没有颤抖 我不会发现我难受\n——《十年》陈奕迅",
+      "情人若寂寥地出生在1874 刚刚早一百年一个世纪\n——《1874》陈奕迅",
+      "爱你孤身走暗巷 爱你不跪的模样 爱你对峙过绝望 不肯哭一场\n——《孤勇者》陈奕迅"
+    ];
+
+    // ================= 3. 歌词显示逻辑（含除夕/春节特殊判断） =================
+    function updateLyrics() {
       var now = new Date();
-      var year = now.getFullYear();
       var month = now.getMonth() + 1;
       var date = now.getDate();
-      var day = now.getDay();
-      
-      // 星期数组，避免使用 toLocaleDateString 造成兼容问题
-      var weekDays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
-      var weekDayStr = weekDays[day];
 
-      document.getElementById('today-info').innerHTML = '今天是 ' + year + '年' + month + '月' + date + '日 ' + weekDayStr;
+      var lyricTextEl = document.getElementById('lyric-text');
+      var lyricInfoEl = document.getElementById('lyric-info');
+
+      // 特殊日期：除夕（2027年2月5日）
+      if (now.getFullYear() === 2027 && month === 2 && date === 5) {
+        lyricTextEl.innerHTML = '辞旧迎新，我在未来的春天里等你。';
+        lyricInfoEl.innerHTML = '—— 颜海健';
+        return;
+      }
+
+      // 特殊日期：春节（2027年2月6日）
+      if (now.getFullYear() === 2027 && month === 2 && date === 6) {
+        lyricTextEl.innerHTML = '春节快乐！';
+        lyricInfoEl.innerHTML = '';
+        return;
+      }
+
+      // 正常日期：根据日期计算歌词索引
+      // 以2026年1月1日为基准日，计算经过了几天
+      var startDate = new Date(2026, 0, 1);
+      var diffDays = Math.floor((now - startDate) / 86400000);
+      
+      // 确保 diffDays 为正数
+      if (diffDays < 0) diffDays = 0;
+
+      // 随机且不重复算法：使用日期作为种子，打乱歌曲列表
+      // 这里使用简单的 Fisher-Yates 洗牌算法，以 diffDays 为种子
+      function seededShuffle(array, seed) {
+        var m = array.length, t, i;
+        // 使用种子初始化随机数
+        var random = function() {
+          seed = (seed * 9301 + 49297) % 233280;
+          return seed / 233280;
+        };
+        while (m) {
+          i = Math.floor(random() * m--);
+          t = array[m];
+          array[m] = array[i];
+          array[i] = t;
+        }
+        return array;
+      }
+
+      // 计算当前是第几个“200天”周期
+      var cycle = Math.floor(diffDays / lyricsData.length);
+      var indexInCycle = diffDays % lyricsData.length;
+
+      // 每个周期重新洗牌，保证200首内不重复，且每次循环顺序不同
+      var shuffledLyrics = seededShuffle(lyricsData.slice(), cycle + 2026);
+      
+      var todayLyric = shuffledLyrics[indexInCycle];
+      
+      // 拆分歌词和来源
+      var parts = todayLyric.split('\n');
+      lyricTextEl.innerHTML = parts[0];
+      lyricInfoEl.innerHTML = parts[1] || '';
     }
 
-    // ================= 3. 倒计时核心逻辑 (ES5兼容) =================
+    // ================= 4. 倒计时核心逻辑 =================
     var springFestivals = {
       2027: [2027, 1, 6, 0, 0, 0],
       2028: [2028, 0, 26, 0, 0, 0],
@@ -266,18 +365,31 @@
       targetEl.innerHTML = '目标：' + next.year + ' 年春节（' + yearStr + '-' + monthStr + '-' + dayStr + '）';
     }
 
-    // ================= 4. 初始化运行 =================
+    function updateTodayInfo() {
+      var now = new Date();
+      var year = now.getFullYear();
+      var month = now.getMonth() + 1;
+      var date = now.getDate();
+      var day = now.getDay();
+      
+      var weekDays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+      document.getElementById('today-info').innerHTML = '今天是 ' + year + '年' + month + '月' + date + '日 ' + weekDays[day];
+    }
+
+    // ================= 5. 初始化运行 =================
     if (window.location.protocol === 'file:') {
+      document.getElementById('lyric-text').innerHTML = '请通过网址打开';
       document.getElementById('today-info').innerHTML = '本地文件受限';
-      document.getElementById('countdown').innerHTML = '请通过网址打开';
-      document.getElementById('target').innerHTML = '微信不支持直接打开本地网页，必须通过网址访问。';
+      document.getElementById('countdown').innerHTML = '微信不支持直接打开本地网页';
+      document.getElementById('target').innerHTML = '必须通过网址访问。';
     } else {
+      updateLyrics();
       updateTodayInfo();
       updateCountdown();
       setInterval(updateCountdown, 1000);
-      // 兼容iOS微信后退不刷新问题
       window.addEventListener('pageshow', function(event) { 
         if (event.persisted) { 
+          updateLyrics();
           updateTodayInfo();
           updateCountdown(); 
         } 
